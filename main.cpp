@@ -4,9 +4,9 @@
 #include "algo.h"
 
 int main(int argc, char* argv[]) {
-	std::time_t start, end;
-	time(&start);
-	std::ios_base::sync_with_stdio(false);
+    std::time_t start, end;
+    time(&start);
+    std::ios_base::sync_with_stdio(false);
 
     std::vector<int> main;
     int permutation = *argv[1] - '0';

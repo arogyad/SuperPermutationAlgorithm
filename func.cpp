@@ -1,17 +1,18 @@
 #include "algo.h"
+#include <deque>
 #include <iostream>
 #include <algorithm>
 
 std::vector<int> superPer(std::vector<int> &x, int checkIndex, const int& permutation) {
     std::vector<int>::const_iterator start = x.end() - permutation;
     std::vector<int>::const_iterator end = x.end();
-    std::vector<int> temp;
+    std::deque<int> temp;
     for ( int i = 1 ; i != permutation; ++i ) {
         std::vector<int> fVec ( start, end );
         if ( ( checkIndex + i ) < permutation )  {
             std::iter_swap( fVec.begin() + checkIndex, fVec.begin() + ( checkIndex + i ) );
             if ( !( check( x, fVec, permutation ) ) ) {
-                std::vector<int>::reverse_iterator rvr = temp.rbegin();
+                std::deque<int>::reverse_iterator rvr = temp.rbegin();
                 for ( int j = checkIndex + 1; j != ( checkIndex + i ); ++j ){
                     fVec[j] = *rvr;
                     ++rvr;
@@ -36,8 +37,8 @@ std::vector<int> superPer(std::vector<int> &x, int checkIndex, const int& permut
                    front.push_back( *j );
                 }
                 temp.push_back( *( fVec.begin() + posi ) );
-                temp.insert( temp.begin(), permutation );
-                for ( std::vector<int>::reverse_iterator j = temp.rbegin(); j != temp.rend(); ++j ) { 
+                temp.push_front( permutation );
+                for ( std::deque<int>::reverse_iterator j = temp.rbegin(); j != temp.rend(); ++j ) { 
                     front.push_back( *j );
                 }
                 temp.clear();

@@ -11,7 +11,7 @@ std::vector<int> superPer(std::vector<int> &x, int checkIndex, const int& permut
         std::vector<int> fVec ( start, end );
         if ( ( checkIndex + i ) < permutation )  {
             std::iter_swap( fVec.begin() + checkIndex, fVec.begin() + ( checkIndex + i ) );
-            if ( !( check( x, fVec, permutation ) ) ) {
+            if ( std::search( x.begin(), x.end(), fVec.begin(), fVec.end() ) == x.end() ) {
                 std::deque<int>::reverse_iterator rvr = temp.rbegin();
                 for ( int j = checkIndex + 1; j != ( checkIndex + i ); ++j ){
                     fVec[j] = *rvr;
@@ -30,7 +30,7 @@ std::vector<int> superPer(std::vector<int> &x, int checkIndex, const int& permut
         } else {
              int posi = ( checkIndex + i ) % permutation;
              std::iter_swap ( fVec.begin() + checkIndex, fVec.begin() + posi );
-             if ( !( check(x, fVec, permutation) ) ) {
+             if ( std::search( x.begin(), x.end(), fVec.begin(), fVec.end() ) == x.end() ) {
                 std::iter_swap ( fVec.begin() + checkIndex, fVec.begin() + posi );
                 std::vector<int> front;
                 for ( std::vector<int>::iterator j = fVec.begin(); j != fVec.begin() + checkIndex; ++j ) {
@@ -61,16 +61,6 @@ std::vector<int> superPer(std::vector<int> &x, int checkIndex, const int& permut
     }
     std::vector<int> out { 1, 0 };
     return out;
-}
-
-bool check(std::vector<int> &x, std::vector<int> &check, const int& permutation) {
-    for (std::vector<int>::iterator i = x.begin(); i != (x.end() - (permutation - 1)); ++i) {
-        std::vector<int> tVec ( i, i + permutation );
-        if ( tVec == check ) {
-            return true;
-        }
-    }
-    return false;
 }
 
 void createVec(std::vector<int> &x, int num) {
